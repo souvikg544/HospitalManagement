@@ -92,9 +92,9 @@ else:
     username=st.text_input("Username")
     password=st.text_input("Password",type="password")
 
-    username_dummy=["rick@gmail.com","ron@yahoo.com","tara@gmail.com","saketsingh2@gmail.com"]
+    username_dummy=["hospitalcheck01","rick@gmail.com","ron@yahoo.com","tara@gmail.com","saketsingh2@gmail.com"]
 
-    password_dummy=["2345","6578","1234","4567"]
+    password_dummy=["5643","2345","6578","1234","4567"]
 
     b=-99
 
@@ -146,3 +146,5 @@ else:
             f=str(diag_list[i]).find(search)
             if(f!=-1):
                 st.write(df.iloc[[i]])
+
+# https://souvikg544-hospitalmanagement-app-fg3zmy.streamlitapp.com/
