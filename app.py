@@ -115,12 +115,12 @@ else:
         st.header("Filter by Admission Date")
         col1,col2=st.columns(2)
         with col1:
-            from_date=st.date_input("From")
+            from_date_adm=st.date_input("From")
         with col2:
-            to_date = st.date_input("To")
+            to_date_adm = st.date_input("To")
         df['ADM_DATE'] = pd.to_datetime(df['ADM_DATE']).dt.date
-        df_filter_adm=df.loc[(df['ADM_DATE']>from_date)&(df['ADM_DATE']<to_date)]
-        st.write(df_filter_adm)
+        # df_filter_adm=df.loc[(df['ADM_DATE']>from_date)&(df['ADM_DATE']<to_date)]
+        # st.write(df_filter_adm)
 
         #Hlw to do the same for discharge date
         st.header("Filter by Discharge Date")
@@ -130,8 +130,9 @@ else:
         with col2:
             to_date = st.date_input("To",key=3)
         df['DIS_DATE'] = pd.to_datetime(df['DIS_DATE']).dt.date
-        df_filter_dis=df.loc[(df['DIS_DATE']>from_date)&(df['DIS_DATE']<to_date)]
-        st.write(df_filter_dis)
+
+        # df_filter_dis=df.loc[(df['DIS_DATE']>from_date)&(df['DIS_DATE']<to_date)]
+        # st.write(df_filter_dis)
 
         # to crate another section
         # -- we can sort the excel file by date( admission date and discharge date)
@@ -139,12 +140,41 @@ else:
         #To create a filter based on to and from
         #Filter based on the diagnosis
 
-        st.header("Filter by Diagnosis")
-        search=st.text_input("Search")
-        diag_list=df['DIAG']
-        for i in range(0,len(diag_list)):
-            f=str(diag_list[i]).find(search)
-            if(f!=-1):
-                st.write(df.iloc[[i]])
+        # st.header("Filter by Diagnosis")
+        # search=st.text_input("Search")
+        # diag_list=df['DIAG']
+        # for i in range(0,len(diag_list)):
+        #     try:
+        #         f=str(diag_list[i].lower()).find(search.lower())
+        #         if(f!=-1):
+        #             st.write(df.iloc[[i]])
+        #     except:
+        #         print("No more records")
+
+        col1, col2, col3 = st.columns([1, 3, 2])
+        with col1:
+            age=st.number_input("Age of the patient")
+        with col2:
+            gender=st.selectbox("Gender",["F","M","O"])
+        with col3:
+            search = st.text_input("Search by diagnosis")
+
+        col1, col2, col3 = st.columns([1, 3, 2])
+
+        with col1:
+            hist=st.text_input("History")
+        with col2:
+            course=st.text_input("Hospital Course")
+        with col3:
+            exam=st.text_input("Examination")
+        df_filter=df.loc[(df['DIS_DATE']>from_date) & (df['DIS_DATE']<to_date) & (df['ADM_DATE']>from_date_adm) & (df['ADM_DATE']<to_date_adm)
+                         & (df['AGE']==age) & (df['GENDER']==gender)&(df['DIAG'].str.find(search)!=-1)]
+        st.write(df_filter)
+
+
+
+
+
+
 
 # https://souvikg544-hospitalmanagement-app-fg3zmy.streamlitapp.com/
