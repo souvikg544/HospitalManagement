@@ -153,7 +153,7 @@ else:
 
         col1, col2, col3 = st.columns([1, 3, 2])
         with col1:
-            age=st.number_input("Age of the patient")
+            age=st.number_input("Age Range")
         with col2:
             gender=st.selectbox("Gender",["F","M","O"])
         with col3:
@@ -166,9 +166,34 @@ else:
         with col2:
             course=st.text_input("Hospital Course")
         with col3:
-            exam=st.text_input("Examination")
+            exam =st.text_input("Examination")
+
+
+
+        #condition=df['HISTORY'].str.find(hist)>=0
+        # df['HOSPITAL_COURSE'].str.find(course)>=0
+        # df['EXAMINATION'].str.find(exam) !=-1
+
+        col1,col2,col3=st.columns([2, 3, 2])
+
+        with col1:
+            surgery=st.text_input("Surgery(If any)")
+        with col2:
+            speciality=st.text_input("Note Type")
+        with col3:
+            proc= st.text_input("Proc")
+
+        # df['PAST_SURG'].str.find(surgery) !=-1
+        # df['NOTE_TYPE'].str.find(speciaLlity) !=-1
+        # df['PROC'].str.find(proc) != -1
+
+
+
         df_filter=df.loc[(df['DIS_DATE']>from_date) & (df['DIS_DATE']<to_date) & (df['ADM_DATE']>from_date_adm) & (df['ADM_DATE']<to_date_adm)
-                         & (df['AGE']==age) & (df['GENDER']==gender)&(df['DIAG'].str.find(search)!=-1)]
+                         & (df['AGE']>age-5) & (df['AGE']<age+5) & (df['GENDER']==gender)&(df['DIAG'].str.find(search)!=-1) & (df['HISTORY'].str.find(hist)>=0) &
+                         (df['HOSPITAL_COURSE'].str.find(course)>=0) & (df['EXAMINATION'].str.find(exam) !=-1)
+                            & (df['PAST_SURG'].str.find(surgery) !=-1) & (df['NOTE_TYPE'].str.find(speciality) !=-1)
+                            & (df['PROC'].str.find(proc) != -1)]
         st.write(df_filter)
 
 
