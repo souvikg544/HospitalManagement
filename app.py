@@ -157,16 +157,16 @@ else:
         with col2:
             gender=st.selectbox("Gender",["F","M","O"])
         with col3:
-            search = st.text_input("Search by diagnosis")
+            search = st.text_input("Search by diagnosis").lower()
 
         col1, col2, col3 = st.columns([1, 3, 2])
 
         with col1:
-            hist=st.text_input("History")
+            hist=st.text_input("History").lower()
         with col2:
-            course=st.text_input("Hospital Course")
+            course=st.text_input("Hospital Course").lower()
         with col3:
-            exam =st.text_input("Examination")
+            exam =st.text_input("Examination").lower()
 
 
 
@@ -177,16 +177,22 @@ else:
         col1,col2,col3=st.columns([2, 3, 2])
 
         with col1:
-            surgery=st.text_input("Surgery(If any)")
+            surgery=st.text_input("Surgery(If any)").lower()
         with col2:
-            speciality=st.text_input("Note Type")
+            speciality=st.text_input("Note Type").lower()
         with col3:
-            proc= st.text_input("Proc")
+            proc= st.text_input("Proc").lower()
 
         # df['PAST_SURG'].str.find(surgery) !=-1
         # df['NOTE_TYPE'].str.find(speciaLlity) !=-1
         # df['PROC'].str.find(proc) != -1
-
+        # try:
+        #     df = df.applymap(lambda s: s.lower() if type(s) == str else s)
+        # except:
+        #     pass
+        lower_columns=['HOSPITAL_COURSE','EXAMINATION','HISTORY','PAST_SURG','NOTE_TYPE','PROC','DIAG']
+        for x in lower_columns:
+            df[x] = df[x].str.lower()
 
 
         df_filter=df.loc[(df['DIS_DATE']>from_date) & (df['DIS_DATE']<to_date) & (df['ADM_DATE']>from_date_adm) & (df['ADM_DATE']<to_date_adm)
