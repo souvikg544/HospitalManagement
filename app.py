@@ -157,16 +157,16 @@ else:
         with col2:
             gender=st.selectbox("Gender",["F","M","O"])
         with col3:
-            search = st.text_input("Search by diagnosis").lower()
+            search = st.text_input("Search by diagnosis").lower().strip()
 
         col1, col2, col3 = st.columns([1, 3, 2])
 
         with col1:
-            hist=st.text_input("History").lower()
+            hist=st.text_input("History").lower().strip()
         with col2:
-            course=st.text_input("Hospital Course").lower()
+            course=st.text_input("Hospital Course").lower().strip()
         with col3:
-            exam =st.text_input("Examination").lower()
+            exam =st.text_input("Examination").lower().strip()
 
 
 
@@ -177,11 +177,11 @@ else:
         col1,col2,col3=st.columns([2, 3, 2])
 
         with col1:
-            surgery=st.text_input("Surgery(If any)").lower()
+            surgery=st.text_input("Surgery(If any)").lower().strip()
         with col2:
-            speciality=st.text_input("Note Type").lower()
+            speciality=st.text_input("Note Type").lower().strip()
         with col3:
-            proc= st.text_input("Proc").lower()
+            proc= st.text_input("Proc").lower().strip()
 
         # df['PAST_SURG'].str.find(surgery) !=-1
         # df['NOTE_TYPE'].str.find(speciaLlity) !=-1
@@ -201,11 +201,6 @@ else:
                             & (df['PAST_SURG'].str.find(surgery) !=-1) & (df['NOTE_TYPE'].str.find(speciality) !=-1)
                             & (df['PROC'].str.find(proc) != -1)]
         st.write(df_filter)
-
-
-
-
-
 
 
 # https://souvikg544-hospitalmanagement-app-fg3zmy.streamlitapp.com/
