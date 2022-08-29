@@ -151,18 +151,23 @@ else:
         #     except:
         #         print("No more records")
 
-        col1, col2, col3 = st.columns([1, 3, 2])
+        col1,col11, col2, col3 = st.columns([1,1,1, 2])
         with col1:
-            age=st.number_input("Age Range")
+            age_from=st.number_input("Age From")
+        with col11:
+            age_to=st.number_input("Age to")
         with col2:
             gender=st.selectbox("Gender",["F","M","O"])
         with col3:
             search = st.text_input("Search by diagnosis").lower().strip()
 
-        col1, col2, col3 = st.columns([1, 3, 2])
+        col1,col11, col2, col3 = st.columns([2,2,2, 2])
+
 
         with col1:
             hist=st.text_input("History").lower().strip()
+        with col11:
+            investigation=st.text_input("Investigation").lower().strip()
         with col2:
             course=st.text_input("Hospital Course").lower().strip()
         with col3:
@@ -190,17 +195,19 @@ else:
         #     df = df.applymap(lambda s: s.lower() if type(s) == str else s)
         # except:
         #     pass
-        lower_columns=['HOSPITAL_COURSE','EXAMINATION','HISTORY','PAST_SURG','NOTE_TYPE','PROC','DIAG']
+        lower_columns=['HOSPITAL_COURSE','EXAMINATION','HISTORY','PAST_SURG','NOTE_TYPE','PROC','DIAG','INV']
         for x in lower_columns:
             df[x] = df[x].str.lower()
 
 
+
         df_filter=df.loc[(df['DIS_DATE']>from_date) & (df['DIS_DATE']<to_date) & (df['ADM_DATE']>from_date_adm) & (df['ADM_DATE']<to_date_adm)
-                         & (df['AGE']>age-5) & (df['AGE']<age+5) & (df['GENDER']==gender)&(df['DIAG'].str.find(search)!=-1) & (df['HISTORY'].str.find(hist)>=0) &
+                         & (df['AGE']>age_from) & (df['AGE']<age_to) & (df['GENDER']==gender)&(df['DIAG'].str.find(search)!=-1) & (df['HISTORY'].str.find(hist)>=0) &
                          (df['HOSPITAL_COURSE'].str.find(course)>=0) & (df['EXAMINATION'].str.find(exam) !=-1)
                             & (df['PAST_SURG'].str.find(surgery) !=-1) & (df['NOTE_TYPE'].str.find(speciality) !=-1)
-                            & (df['PROC'].str.find(proc) != -1)]
+                            & (df['PROC'].str.find(proc) != -1) & (df['INV'].str.find(investigation) != -1)]
         st.write(df_filter)
+
 
 
 # https://souvikg544-hospitalmanagement-app-fg3zmy.streamlitapp.com/
